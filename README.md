@@ -33,14 +33,14 @@ Here will be the general flow and some descriptions.
 
 First week of development (active development)
 
-### Commits
+## Commits
 
 Some of the commits that will be used in development
 
 - feat: new functionality
 - fix: bug fix
 - refactor: intern change without new features
-- chore: setup, confgis, tooling
+- chore: setup, configs, tooling
 - docs: documentation
 - test: tests
 
