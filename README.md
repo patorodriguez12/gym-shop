@@ -39,6 +39,7 @@ Some of the commits that will be used in development
 
 - feat: new functionality
 - fix: bug fix
+- style: new styling
 - refactor: intern change without new features
 - chore: setup, configs, tooling
 - docs: documentation
