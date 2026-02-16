@@ -1,6 +1,34 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase/client";
 import Link from "next/link";
 
 export default function Navbar() {
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    // Obtener sesión inicial
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user);
+    });
+
+    // Escuchar cambios
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setUser(session?.user ?? null);
+      },
+    );
+
+    return () => {
+      listener.subscription.unsubscribe();
+    };
+  }, []);
+
+  async function handleLogout() {
+    await supabase.auth.signOut();
+  }
+
   return (
     <header className="bg-gray-900 border-b border-gary-800">
       <div className="mx-auto max-w-7xl px-4 h-16 flex items-center justify-between gap-6">
@@ -26,18 +54,30 @@ export default function Navbar() {
 
         {/* ACTIONS */}
         <nav className="flex items-center gap-4 text-sm text-gray-300 whitespace-nowrap">
-          <Link
-            href="/login"
-            className="hover:text-orange-400 transition cursor-pointer"
-          >
-            Login
-          </Link>
-          <Link
-            href="/register"
-            className="hover:text-orange-400 transition cursor-pointer"
-          >
-            Register
-          </Link>
+          {user ? (
+            <>
+              <span className="text-gray-400">{user.email}</span>
+              <button onClick={handleLogout} className="hover:text-orange-400 cursor-pointer">
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="hover:text-orange-400 transition cursor-pointer"
+              >
+                Login
+              </Link>
+              <Link
+                href="/register"
+                className="hover:text-orange-400 transition cursor-pointer"
+              >
+                Register
+              </Link>
+            </>
+          )}
+
           <button
             className="
               relative rounded-md border border-gray-700
