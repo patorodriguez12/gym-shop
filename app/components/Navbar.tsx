@@ -6,7 +6,7 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-4 h-16 flex items-center justify-between gap-6">
         {/* LOGO */}
         <div className="text-lg font-semibold text-orange-500 whitespace-nowrap">
-          GymShop
+          <Link href="/">GymShop</Link>
         </div>
 
         {/* SEARCHBAR */}
