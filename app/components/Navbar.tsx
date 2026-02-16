@@ -1,4 +1,6 @@
-const Navbar = () => {
+import Link from "next/link";
+
+export default function Navbar() {
   return (
     <header className="bg-gray-900 border-b border-gary-800">
       <div className="mx-auto max-w-7xl px-4 h-16 flex items-center justify-between gap-6">
@@ -23,13 +25,19 @@ const Navbar = () => {
         </div>
 
         {/* ACTIONS */}
-        <div className="flex items-center gap-4 text-sm text-gray-300 whitespace-nowrap">
-          <button className="hover:text-orange-400 transition cursor-pointer">
+        <nav className="flex items-center gap-4 text-sm text-gray-300 whitespace-nowrap">
+          <Link
+            href="/login"
+            className="hover:text-orange-400 transition cursor-pointer"
+          >
             Login
-          </button>
-          <button className="hover:text-orange-400 transition cursor-pointer">
+          </Link>
+          <Link
+            href="/register"
+            className="hover:text-orange-400 transition cursor-pointer"
+          >
             Register
-          </button>
+          </Link>
           <button
             className="
               relative rounded-md border border-gray-700
@@ -40,10 +48,8 @@ const Navbar = () => {
           >
             Cart
           </button>
-        </div>
+        </nav>
       </div>
     </header>
   );
-};
-
-export default Navbar;
+}
