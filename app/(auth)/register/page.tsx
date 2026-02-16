@@ -1,5 +1,3 @@
-import RegisterForm from "./RegisterForm";
-
 export default function RegisterPage() {
-  return <RegisterForm />;
+  return <div>Register</div>;
 }
