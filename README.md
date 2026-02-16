@@ -2,6 +2,9 @@
 
 First README, probably it will change in future updates
 
+### Link to the app's deployment
+https://gym-shop-theta.vercel.app/
+
 ## Overview
 
 E-commerce platform built with Next.js, serverless authentication using Supabase
