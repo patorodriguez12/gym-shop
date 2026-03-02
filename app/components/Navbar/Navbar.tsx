@@ -1,33 +1,26 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase/client";
+import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
 import Link from "next/link";
+import LogoutButton from "./LogoutButton";
 
-export default function Navbar() {
-  const [user, setUser] = useState<any>(null);
+export default async function Navbar() {
+  const cookieStore = cookies();
 
-  useEffect(() => {
-    // Obtener sesión inicial
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user);
-    });
-
-    // Escuchar cambios
-    const { data: listener } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setUser(session?.user ?? null);
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        async getAll() {
+          return (await cookieStore).getAll();
+        },
       },
-    );
+    },
+  );
 
-    return () => {
-      listener.subscription.unsubscribe();
-    };
-  }, []);
-
-  async function handleLogout() {
-    await supabase.auth.signOut();
-  }
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   return (
     <header className="bg-gray-900 border-b border-gary-800">
@@ -57,22 +50,14 @@ export default function Navbar() {
           {user ? (
             <>
               <span className="text-gray-400">{user.email}</span>
-              <button onClick={handleLogout} className="hover:text-orange-400 cursor-pointer">
-                Logout
-              </button>
+              <LogoutButton />
             </>
           ) : (
             <>
-              <Link
-                href="/login"
-                className="hover:text-orange-400 transition cursor-pointer"
-              >
+              <Link href="/login" className="hover:text-orange-400">
                 Login
               </Link>
-              <Link
-                href="/register"
-                className="hover:text-orange-400 transition cursor-pointer"
-              >
+              <Link href="/register" className="hover:text-orange-400">
                 Register
               </Link>
             </>

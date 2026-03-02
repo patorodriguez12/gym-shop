@@ -1,4 +1,4 @@
-import Navbar from "@/app/components/Navbar";
+import Navbar from "@/app/components/Navbar/Navbar";
 
 export default function ShopLayout({
   children,
