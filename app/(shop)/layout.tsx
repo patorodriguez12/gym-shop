@@ -1,4 +1,5 @@
 import Navbar from "@/app/components/Navbar/Navbar";
+import CartSync from "../components/CartSync";
 
 export default function ShopLayout({
   children,
@@ -7,6 +8,7 @@ export default function ShopLayout({
 }) {
   return (
     <>
+      <CartSync />
       <Navbar />
       <main>{children}</main>
     </>

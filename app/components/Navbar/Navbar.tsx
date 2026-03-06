@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import LogoutButton from "./LogoutButton";
+import CartButton from "./CartButton";
 
 export default async function Navbar() {
   const cookieStore = cookies();
@@ -63,16 +64,7 @@ export default async function Navbar() {
             </>
           )}
 
-          <button
-            className="
-              relative rounded-md border border-gray-700
-              px-3 py-1.5 text-gray-100
-              hover:border-orange-500 hover:text-orange-400
-              transition cursor-pointer
-            "
-          >
-            Cart
-          </button>
+          <CartButton />
         </nav>
       </div>
     </header>
